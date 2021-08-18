@@ -13,8 +13,8 @@ import com.zavanton.company.controller.CompanyController.Companion.PROCESS_UPDAT
 import com.zavanton.company.controller.CompanyController.Companion.UPDATE_COMPANY_FORM_TEMPLATE
 import com.zavanton.company.entity.Company
 import com.zavanton.company.service.CompanyService
+import com.zavanton.company.util.CompanyNotFoundException
 import org.junit.jupiter.api.Test
-import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
@@ -103,6 +103,21 @@ class CompanyControllerTest {
             .andExpect(status().isOk)
             .andExpect(model().attribute(COMPANY_ATTRIBUTE, company))
             .andExpect(view().name(COMPANY_DETAILS_TEMPLATE))
+
+        // verify
+        verify(companyService).fetchCompanyById(anyLong())
+    }
+
+    @Test
+    fun `test showCompanyById throws exception if company not found`() {
+        // mock
+        val id = 123L
+        `when`(companyService.fetchCompanyById(anyLong())).thenThrow(CompanyNotFoundException::class.java)
+
+        // action
+        mvc.perform(get("/companies/$id"))
+            .andExpect(status().isNotFound)
+            .andExpect(view().name("404"))
 
         // verify
         verify(companyService).fetchCompanyById(anyLong())
