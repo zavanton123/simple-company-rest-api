@@ -1,5 +1,6 @@
 package com.zavanton.company.controller
 
+import com.zavanton.company.controller.web.IndexController
 import org.junit.jupiter.api.Test
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.view

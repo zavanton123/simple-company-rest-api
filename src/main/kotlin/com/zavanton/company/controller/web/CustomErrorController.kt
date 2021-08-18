@@ -1,4 +1,4 @@
-package com.zavanton.company.controller
+package com.zavanton.company.controller.web
 
 import org.springframework.boot.web.servlet.error.ErrorController
 import org.springframework.http.HttpStatus

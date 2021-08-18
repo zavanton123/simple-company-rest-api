@@ -1,4 +1,4 @@
-package com.zavanton.company.controller
+package com.zavanton.company.controller.web
 
 import com.zavanton.company.util.CompanyNotFoundException
 import org.springframework.http.HttpStatus
