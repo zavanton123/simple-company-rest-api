@@ -28,6 +28,7 @@ class CompanyController(
         const val DELETE_COMPANY_FORM_URL = "/companies/{id}/delete"
         const val PROCESS_DELETE_COMPANY_URL = "/companies/process_delete"
         const val UPDATE_COMPANY_FORM_URL = "/companies/{id}/update"
+        const val PROCESS_UPDATE_COMPANY_URL = "/companies/process_update"
 
         const val COMPANIES_LIST_TEMPLATE = "companies/companies_list"
         const val COMPANY_DETAILS_TEMPLATE = "companies/company_details"
@@ -99,14 +100,12 @@ class CompanyController(
         model.addAttribute(COMPANY_ATTRIBUTE, company)
         return UPDATE_COMPANY_FORM_TEMPLATE
     }
+
+    @PostMapping(PROCESS_UPDATE_COMPANY_URL)
+    fun processUpdateCompanyForm(
+        @ModelAttribute company: Company
+    ): String {
+        val updatedCompany = companyService.updateCompany(company)
+        return REDIRECT_TO + COMPANIES_LIST_URL + "/${updatedCompany.id}"
+    }
 }
-
-
-
-
-
-
-
-
-
-

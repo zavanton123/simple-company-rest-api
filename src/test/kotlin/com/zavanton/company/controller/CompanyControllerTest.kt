@@ -9,9 +9,12 @@ import com.zavanton.company.controller.CompanyController.Companion.COMPANY_ATTRI
 import com.zavanton.company.controller.CompanyController.Companion.COMPANY_DETAILS_TEMPLATE
 import com.zavanton.company.controller.CompanyController.Companion.CREATE_COMPANY_FORM_TEMPLATE
 import com.zavanton.company.controller.CompanyController.Companion.DELETE_COMPANY_FORM_TEMPLATE
+import com.zavanton.company.controller.CompanyController.Companion.PROCESS_UPDATE_COMPANY_URL
+import com.zavanton.company.controller.CompanyController.Companion.UPDATE_COMPANY_FORM_TEMPLATE
 import com.zavanton.company.entity.Company
 import com.zavanton.company.service.CompanyService
 import org.junit.jupiter.api.Test
+import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
@@ -81,6 +84,7 @@ class CompanyControllerTest {
                 .param("id", company.id.toString())
                 .param("name", company.name)
         )
+            .andExpect(status().is3xxRedirection)
             .andExpect(view().name("redirect:/companies/0"))
 
         // verify
@@ -119,5 +123,40 @@ class CompanyControllerTest {
 
         // verify
         verify(companyService).fetchCompanyById(anyLong())
+    }
+
+    @Test
+    fun showUpdateCompanyForm() {
+        // mock
+        val company = Company(id = 0L, name = "Google")
+        `when`(companyService.fetchCompanyById(anyLong())).thenReturn(company)
+
+        // action
+        mvc.perform(get("/companies/${company.id}/update"))
+            .andExpect(status().isOk)
+            .andExpect(model().attribute(COMPANY_ATTRIBUTE, company))
+            .andExpect(view().name(UPDATE_COMPANY_FORM_TEMPLATE))
+
+        // verify
+        verify(companyService).fetchCompanyById(anyLong())
+    }
+
+    @Test
+    fun processUpdateCompanyForm() {
+        // mock
+        val updatedCompany = Company(0L, name = "Google")
+        `when`(companyService.updateCompany(updatedCompany)).thenReturn(updatedCompany)
+
+        // action
+        mvc.perform(
+            post(PROCESS_UPDATE_COMPANY_URL)
+                .param("id", updatedCompany.id.toString())
+                .param("name", updatedCompany.name)
+        )
+            .andExpect(status().is3xxRedirection)
+            .andExpect(view().name("redirect:/companies/${updatedCompany.id}"))
+
+        // verify
+        verify((companyService)).updateCompany(updatedCompany)
     }
 }
