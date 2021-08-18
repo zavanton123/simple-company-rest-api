@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito.`when`
@@ -97,5 +98,61 @@ internal class CompanyServiceImplTest {
 
         // verify
         verify(companyRepository).findByName(anyString())
+    }
+
+    @Test
+    fun `test createCompany saves a company to DB`() {
+        // mock
+        val company = Company()
+        `when`(companyRepository.save(any(Company::class.java))).thenReturn(company)
+
+        // action
+        val actualCompany = companyService.createCompany(company)
+
+        // verify
+        verify(companyRepository).save(company)
+        assertEquals(company, actualCompany)
+    }
+
+    @Test
+    fun `test updateCompany updates the company`() {
+        // mock
+        val company = Company(id = 0L, name = "Google")
+        val updatedCompany = Company(id = 0L, name = "Amazon")
+        `when`(companyRepository.save(company)).thenReturn(updatedCompany)
+
+        // action
+        val actualCompany = companyService.updateCompany(company)
+
+        // verify
+        verify(companyRepository).save(company)
+        assertEquals(updatedCompany, actualCompany)
+    }
+
+    @Test
+    fun `test patchCompany updates the company`() {
+        // mock
+        val company = Company(id = 0L, name = "Google")
+        val updatedCompany = Company(id = 0L, name = "Amazon")
+        `when`(companyRepository.save(company)).thenReturn(updatedCompany)
+
+        // action
+        val actualCompany = companyService.patchCompany(company)
+
+        // verify
+        verify(companyRepository).save(company)
+        assertEquals(updatedCompany, actualCompany)
+    }
+
+    @Test
+    fun `test deleteCompany deletes the company`() {
+        // mock
+        val company = Company(id = 0L, name = "Google")
+
+        // action
+        companyService.deleteCompany(company)
+
+        // verify
+        verify(companyRepository).delete(company)
     }
 }
