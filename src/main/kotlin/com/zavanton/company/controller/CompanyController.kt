@@ -1,5 +1,6 @@
 package com.zavanton.company.controller
 
+import com.zavanton.company.entity.Company
 import com.zavanton.company.service.CompanyService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -16,7 +17,7 @@ class CompanyController(
     fun showAllCompanies(
         model: Model
     ): String {
-        val companies = companyService.fetchAllCompanies()
+        val companies: Set<Company> = companyService.fetchAllCompanies()
         model.addAttribute("companies", companies)
         return "companies/companies_list"
     }
