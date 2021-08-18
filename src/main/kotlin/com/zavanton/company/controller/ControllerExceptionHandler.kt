@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.servlet.ModelAndView
 
 @ControllerAdvice
-class CompanyNotFoundHandler {
+class ControllerExceptionHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(CompanyNotFoundException::class)
@@ -16,5 +16,11 @@ class CompanyNotFoundHandler {
         exception: CompanyNotFoundException
     ): ModelAndView {
         return ModelAndView("404", mutableMapOf("exception" to exception))
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception::class)
+    fun handleException(): String {
+        return "500"
     }
 }
