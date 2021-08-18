@@ -38,9 +38,9 @@ class CompanyServiceImpl(
         }
     }
 
-    override fun createCompany(company: CompanyCommand): CompanyCommand {
-        val command = companyCommandToEntityConverter.convert(company)
-        val savedCompany = companyRepository.save(command)
+    override fun createCompany(command: CompanyCommand): CompanyCommand {
+        val company = companyCommandToEntityConverter.convert(command)
+        val savedCompany = companyRepository.save(company)
         return companyEntityToCommandConverter.convert(savedCompany)
     }
 

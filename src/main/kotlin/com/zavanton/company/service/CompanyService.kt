@@ -10,7 +10,7 @@ interface CompanyService {
 
     fun fetchCompanyByName(name: String): CompanyCommand
 
-    fun createCompany(company: CompanyCommand): CompanyCommand
+    fun createCompany(command: CompanyCommand): CompanyCommand
 
     fun updateCompany(company: CompanyCommand): CompanyCommand
 
