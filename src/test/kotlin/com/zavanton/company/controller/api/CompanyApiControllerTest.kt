@@ -12,8 +12,10 @@ import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 import org.springframework.http.MediaType
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
@@ -96,9 +98,37 @@ internal class CompanyApiControllerTest {
 
     @Test
     fun updateCompany() {
+        // mock
+        val id = 0L
+        val name = "Google"
+        val companyDTO = CompanyDTO(id = id, name = name)
+        val updatedCompanyDTO = CompanyDTO(id = id, name = name)
+        `when`(companyApiService.updateCompany(companyDTO)).thenReturn(updatedCompanyDTO)
+
+        // action
+        mvc.perform(
+            put("/api/companies/${id}")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(ObjectMapper().writeValueAsString(companyDTO))
+        )
+            .andExpect(status().isOk)
+            .andExpect(jsonPath("$.id", equalTo(id.toInt())))
+            .andExpect(jsonPath("$.name", equalTo(name)))
+        // verify
+        verify(companyApiService).updateCompany(companyDTO)
     }
 
     @Test
     fun deleteCompany() {
+        // mock
+        val id = 0L
+
+        // action
+        mvc.perform(delete("/api/companies/$id"))
+            .andExpect(status().isNoContent)
+
+        // verify
+        verify(companyApiService).deleteCompany(id)
     }
 }
