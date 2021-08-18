@@ -10,7 +10,12 @@
 <p><a th:href="@{/companies/create}">Create a new company</a></p>
 
 <ul th:each="company : ${companies}">
-    <li th:text="${company.name}">company</li>
+    <li>
+        <a th:href="@{/companies/{id}(id=${company.id})}"
+           th:text="${company.name}">
+            Company Name
+        </a>
+    </li>
 </ul>
 
 </body>

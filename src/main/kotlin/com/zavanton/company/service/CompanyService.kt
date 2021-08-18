@@ -16,5 +16,5 @@ interface CompanyService {
 
     fun patchCompany(company: Company): Company
 
-    fun deleteCompany(company: Company)
+    fun deleteCompany(id: Long)
 }

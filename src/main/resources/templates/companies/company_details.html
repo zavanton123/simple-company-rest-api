@@ -7,15 +7,24 @@
 <body>
 <h1>Company Details</h1>
 
+<table th:object="${company}">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+    </tr>
+    <tr>
+        <td th:text="*{id}">Id</td>
+        <td th:text="*{name}">Name</td>
+    </tr>
+</table>
+
+<br/>
+<br/>
+<br/>
+
+<p><a th:href="@{/companies/{id}/delete(id=${company.id})}">Delete</a></p>
 <p><a th:href="@{/companies}">Go to companies</a></p>
 <p><a th:href="@{/companies/create}">Create a new company</a></p>
 
-<div th:object="${company}">
-    <h3>Id</h3>
-    <p th:text="*{id}"></p>
-
-    <h3>Name</h3>
-    <p th:text="*{name}"></p>
-</div>
 </body>
 </html>

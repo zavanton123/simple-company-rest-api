@@ -19,6 +19,8 @@ class CompanyController(
         const val COMPANIES_CREATE_URL = "/companies/create"
         const val COMPANIES_PROCESS_CREATE_URL = "/companies/process_create"
         const val COMPANIES_ID_URL = "/companies/{id}"
+        const val DELETE_COMPANY_FORM_URL = "/companies/{id}/delete"
+        const val PROCESS_DELETE_COMPANY_URL = "/companies/process_delete"
     }
 
     @GetMapping(COMPANIES_URL)
@@ -56,4 +58,32 @@ class CompanyController(
         model.addAttribute("company", company)
         return "companies/company_details"
     }
+
+    @GetMapping(DELETE_COMPANY_FORM_URL)
+    fun showDeleteCompanyForm(
+        @PathVariable("id") id: Long,
+        model: Model
+    ): String {
+        val company = companyService.fetchCompanyById(id)
+        model.addAttribute("company", company)
+        return "companies/delete_company"
+    }
+
+    @PostMapping(PROCESS_DELETE_COMPANY_URL)
+    fun processDeleteCompany(
+        @ModelAttribute company: Company
+    ): String {
+        companyService.deleteCompany(company.id)
+        return "redirect:/companies"
+    }
 }
+
+
+
+
+
+
+
+
+
+

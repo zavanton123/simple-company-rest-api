@@ -150,9 +150,9 @@ internal class CompanyServiceImplTest {
         val company = Company(id = 0L, name = "Google")
 
         // action
-        companyService.deleteCompany(company)
+        companyService.deleteCompany(company.id)
 
         // verify
-        verify(companyRepository).delete(company)
+        verify(companyRepository).deleteById(company.id)
     }
 }

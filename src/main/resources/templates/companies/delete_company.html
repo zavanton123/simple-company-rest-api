@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Company</title>
+</head>
+<body>
+<h1>Delete Company</h1>
+
+<form th:action="@{/companies/process_delete}" method="post">
+    <input type="hidden" th:field="${company.id}"/>
+
+    <label th:text="'Are you sure you want to delete ' + ${company.name} + '?'"></label><br/>
+
+    <input type="submit" value="Delete"/>
+</form>
+
+</body>
+</html>

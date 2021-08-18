@@ -45,7 +45,7 @@ class CompanyServiceImpl(
         return companyRepository.save(company)
     }
 
-    override fun deleteCompany(company: Company) {
-        companyRepository.delete(company)
+    override fun deleteCompany(id: Long) {
+        companyRepository.deleteById(id)
     }
 }
