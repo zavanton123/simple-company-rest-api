@@ -27,11 +27,13 @@ class CompanyController(
         const val COMPANIES_ID_URL = "/companies/{id}"
         const val DELETE_COMPANY_FORM_URL = "/companies/{id}/delete"
         const val PROCESS_DELETE_COMPANY_URL = "/companies/process_delete"
+        const val UPDATE_COMPANY_FORM_URL = "/companies/{id}/update"
 
         const val COMPANIES_LIST_TEMPLATE = "companies/companies_list"
         const val COMPANY_DETAILS_TEMPLATE = "companies/company_details"
         const val CREATE_COMPANY_FORM_TEMPLATE = "companies/create_company"
         const val DELETE_COMPANY_FORM_TEMPLATE = "companies/delete_company"
+        const val UPDATE_COMPANY_FORM_TEMPLATE = "companies/update_company"
     }
 
     @GetMapping(COMPANIES_LIST_URL)
@@ -86,6 +88,16 @@ class CompanyController(
     ): String {
         companyService.deleteCompany(company.id)
         return REDIRECT_TO + COMPANIES_LIST_URL
+    }
+
+    @GetMapping(UPDATE_COMPANY_FORM_URL)
+    fun showUpdateCompanyForm(
+        @PathVariable(ID_PATH_VARIABLE) id: Long,
+        model: Model
+    ): String {
+        val company = companyService.fetchCompanyById(id)
+        model.addAttribute(COMPANY_ATTRIBUTE, company)
+        return UPDATE_COMPANY_FORM_TEMPLATE
     }
 }
 
