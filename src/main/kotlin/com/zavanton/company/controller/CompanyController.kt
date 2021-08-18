@@ -57,7 +57,7 @@ class CompanyController(
         @ModelAttribute company: Company
     ): String {
         val savedCompany = companyService.createCompany(company)
-        return "redirect:/companies/${savedCompany.id}"
+        return REDIRECT_TO + COMPANIES_LIST_URL + "/${savedCompany.id}"
     }
 
     @GetMapping(COMPANIES_ID_URL)

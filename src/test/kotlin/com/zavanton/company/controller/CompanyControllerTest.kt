@@ -1,9 +1,12 @@
 package com.zavanton.company.controller
 
+import com.zavanton.company.controller.CompanyController.Companion.COMPANIES_ATTRIBUTE
 import com.zavanton.company.controller.CompanyController.Companion.COMPANIES_CREATE_URL
 import com.zavanton.company.controller.CompanyController.Companion.COMPANIES_LIST_TEMPLATE
-import com.zavanton.company.controller.CompanyController.Companion.COMPANIES_PROCESS_CREATE_URL
 import com.zavanton.company.controller.CompanyController.Companion.COMPANIES_LIST_URL
+import com.zavanton.company.controller.CompanyController.Companion.COMPANIES_PROCESS_CREATE_URL
+import com.zavanton.company.controller.CompanyController.Companion.COMPANY_ATTRIBUTE
+import com.zavanton.company.controller.CompanyController.Companion.COMPANY_DETAILS_TEMPLATE
 import com.zavanton.company.controller.CompanyController.Companion.CREATE_COMPANY_FORM_TEMPLATE
 import com.zavanton.company.controller.CompanyController.Companion.DELETE_COMPANY_FORM_TEMPLATE
 import com.zavanton.company.entity.Company
@@ -45,7 +48,7 @@ class CompanyControllerTest {
         // action
         mvc.perform(get(COMPANIES_LIST_URL))
             .andExpect(status().isOk)
-            .andExpect(model().attribute("companies", companies))
+            .andExpect(model().attribute(COMPANIES_ATTRIBUTE, companies))
             .andExpect(view().name(COMPANIES_LIST_TEMPLATE))
 
         // verify
@@ -60,7 +63,7 @@ class CompanyControllerTest {
         // action and verify
         mvc.perform(get(COMPANIES_CREATE_URL))
             .andExpect(status().isOk)
-            .andExpect(model().attribute("company", company))
+            .andExpect(model().attribute(COMPANY_ATTRIBUTE, company))
             .andExpect(view().name(CREATE_COMPANY_FORM_TEMPLATE))
     }
 
@@ -94,15 +97,15 @@ class CompanyControllerTest {
         // action
         mvc.perform(get("/companies/$id"))
             .andExpect(status().isOk)
-            .andExpect(model().attribute("company", company))
-            .andExpect(view().name("companies/company_details"))
+            .andExpect(model().attribute(COMPANY_ATTRIBUTE, company))
+            .andExpect(view().name(COMPANY_DETAILS_TEMPLATE))
 
         // verify
         verify(companyService).fetchCompanyById(anyLong())
     }
 
     @Test
-    fun `test processDeleteCompanyForm`() {
+    fun processDeleteCompanyForm() {
         // mock
         val id = 0L
         val company = Company(id = id, name = "Google")
@@ -111,12 +114,10 @@ class CompanyControllerTest {
         // action
         mvc.perform(get("/companies/$id/delete"))
             .andExpect(status().isOk)
-            .andExpect(model().attribute("company", company))
+            .andExpect(model().attribute(COMPANY_ATTRIBUTE, company))
             .andExpect(view().name(DELETE_COMPANY_FORM_TEMPLATE))
 
         // verify
         verify(companyService).fetchCompanyById(anyLong())
     }
-
-
 }
