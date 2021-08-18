@@ -1,6 +1,6 @@
 package com.zavanton.company.controller
 
-import com.zavanton.company.entity.Company
+import com.zavanton.company.command.CompanyCommand
 import com.zavanton.company.service.CompanyService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -41,7 +41,7 @@ class CompanyController(
     fun showAllCompanies(
         model: Model
     ): String {
-        val companies: Set<Company> = companyService.fetchAllCompanies()
+        val companies = companyService.fetchAllCompanies()
         model.addAttribute(COMPANIES_ATTRIBUTE, companies)
         return COMPANIES_LIST_TEMPLATE
     }
@@ -50,14 +50,14 @@ class CompanyController(
     fun showCreateCompanyForm(
         model: Model
     ): String {
-        val company = Company()
+        val company = CompanyCommand()
         model.addAttribute(COMPANY_ATTRIBUTE, company)
         return CREATE_COMPANY_FORM_TEMPLATE
     }
 
     @PostMapping(COMPANIES_PROCESS_CREATE_URL)
     fun processCreateCompanyForm(
-        @ModelAttribute company: Company
+        @ModelAttribute company: CompanyCommand
     ): String {
         val savedCompany = companyService.createCompany(company)
         return REDIRECT_TO + COMPANIES_LIST_URL + "/${savedCompany.id}"
@@ -85,7 +85,7 @@ class CompanyController(
 
     @PostMapping(PROCESS_DELETE_COMPANY_URL)
     fun processDeleteCompanyForm(
-        @ModelAttribute company: Company
+        @ModelAttribute company: CompanyCommand
     ): String {
         companyService.deleteCompany(company.id)
         return REDIRECT_TO + COMPANIES_LIST_URL
@@ -103,7 +103,7 @@ class CompanyController(
 
     @PostMapping(PROCESS_UPDATE_COMPANY_URL)
     fun processUpdateCompanyForm(
-        @ModelAttribute company: Company
+        @ModelAttribute company: CompanyCommand
     ): String {
         val updatedCompany = companyService.updateCompany(company)
         return REDIRECT_TO + COMPANIES_LIST_URL + "/${updatedCompany.id}"

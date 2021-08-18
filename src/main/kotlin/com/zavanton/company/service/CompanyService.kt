@@ -1,20 +1,20 @@
 package com.zavanton.company.service
 
-import com.zavanton.company.entity.Company
+import com.zavanton.company.command.CompanyCommand
 
 interface CompanyService {
 
-    fun fetchAllCompanies(): Set<Company>
+    fun fetchAllCompanies(): Set<CompanyCommand>
 
-    fun fetchCompanyById(id: Long): Company
+    fun fetchCompanyById(id: Long): CompanyCommand
 
-    fun fetchCompanyByName(name: String): Company
+    fun fetchCompanyByName(name: String): CompanyCommand
 
-    fun createCompany(company: Company): Company
+    fun createCompany(company: CompanyCommand): CompanyCommand
 
-    fun updateCompany(company: Company): Company
+    fun updateCompany(company: CompanyCommand): CompanyCommand
 
-    fun patchCompany(company: Company): Company
+    fun patchCompany(company: CompanyCommand): CompanyCommand
 
     fun deleteCompany(id: Long)
 }
