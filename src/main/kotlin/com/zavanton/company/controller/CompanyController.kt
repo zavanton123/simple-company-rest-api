@@ -8,15 +8,20 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
-@RequestMapping("/companies")
 class CompanyController(
     private val companyService: CompanyService
 ) {
 
-    @GetMapping("", "/")
+    companion object {
+        const val COMPANIES_URL = "/companies"
+        const val COMPANIES_CREATE_URL = "/companies/create"
+        const val COMPANIES_PROCESS_CREATE_URL = "/companies/process_create"
+        const val COMPANIES_ID_URL = "/companies/{id}"
+    }
+
+    @GetMapping(COMPANIES_URL)
     fun showAllCompanies(
         model: Model
     ): String {
@@ -25,7 +30,7 @@ class CompanyController(
         return "companies/companies_list"
     }
 
-    @GetMapping("/create")
+    @GetMapping(COMPANIES_CREATE_URL)
     fun showCreateCompanyForm(
         model: Model
     ): String {
@@ -34,7 +39,7 @@ class CompanyController(
         return "companies/create_company"
     }
 
-    @PostMapping("/process_create")
+    @PostMapping(COMPANIES_PROCESS_CREATE_URL)
     fun processCreateCompanyForm(
         @ModelAttribute company: Company
     ): String {
@@ -42,7 +47,7 @@ class CompanyController(
         return "redirect:/companies/${savedCompany.id}"
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(COMPANIES_ID_URL)
     fun showCompanyById(
         @PathVariable("id") id: Long,
         model: Model
