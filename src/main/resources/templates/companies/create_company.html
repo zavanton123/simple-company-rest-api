@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create a Company</title>
+</head>
+<body>
+<h1>Create a Company</h1>
+
+<p><a th:href="@{/companies}">Go to companies</a></p>
+
+<form th:action="@{/companies/process_create}" method="post">
+    <input type="hidden" th:field="${company.id}"/>
+
+    <label>Name:</label>
+    <br/>
+
+    <input type="text" th:field="${company.name}"/>
+    <br/>
+
+    <input type="submit" value="Save"/>
+</form>
+
+</body>
+</html>

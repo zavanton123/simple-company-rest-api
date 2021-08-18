@@ -7,6 +7,8 @@
 <body>
 <h1>All Companies</h1>
 
+<p><a th:href="@{/companies/create}">Create a new company</a></p>
+
 <ul th:each="company : ${companies}">
     <li th:text="${company.name}">company</li>
 </ul>

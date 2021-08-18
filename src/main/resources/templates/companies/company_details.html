@@ -2,13 +2,20 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Company Details</title>
 </head>
 <body>
-<h1>Home</h1>
+<h1>Company Details</h1>
 
 <p><a th:href="@{/companies}">Go to companies</a></p>
 <p><a th:href="@{/companies/create}">Create a new company</a></p>
 
+<div th:object="${company}">
+    <h3>Id</h3>
+    <p th:text="*{id}"></p>
+
+    <h3>Name</h3>
+    <p th:text="*{name}"></p>
+</div>
 </body>
 </html>
