@@ -9,4 +9,12 @@ interface CompanyService {
     fun fetchCompanyById(id: Long): Company
 
     fun fetchCompanyByName(name: String): Company
+
+    fun createCompany(company: Company): Company
+
+    fun updateCompany(company: Company): Company
+
+    fun patchCompany(company: Company): Company
+
+    fun deleteCompany(company: Company)
 }

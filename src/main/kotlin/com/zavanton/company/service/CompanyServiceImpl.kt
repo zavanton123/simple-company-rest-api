@@ -31,4 +31,21 @@ class CompanyServiceImpl(
             throw CompanyNotFoundException("Company with name $name does not exist")
         }
     }
+
+    override fun createCompany(company: Company): Company {
+        return companyRepository.save(company)
+    }
+
+    override fun updateCompany(company: Company): Company {
+        return companyRepository.save(company)
+    }
+
+    override fun patchCompany(company: Company): Company {
+        // todo zavanton - replace by patch logic
+        return companyRepository.save(company)
+    }
+
+    override fun deleteCompany(company: Company) {
+        companyRepository.delete(company)
+    }
 }
