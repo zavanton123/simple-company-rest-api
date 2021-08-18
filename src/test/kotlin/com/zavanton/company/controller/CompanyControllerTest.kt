@@ -1,8 +1,11 @@
 package com.zavanton.company.controller
 
 import com.zavanton.company.controller.CompanyController.Companion.COMPANIES_CREATE_URL
+import com.zavanton.company.controller.CompanyController.Companion.COMPANIES_LIST_TEMPLATE
 import com.zavanton.company.controller.CompanyController.Companion.COMPANIES_PROCESS_CREATE_URL
-import com.zavanton.company.controller.CompanyController.Companion.COMPANIES_URL
+import com.zavanton.company.controller.CompanyController.Companion.COMPANIES_LIST_URL
+import com.zavanton.company.controller.CompanyController.Companion.CREATE_COMPANY_FORM_TEMPLATE
+import com.zavanton.company.controller.CompanyController.Companion.DELETE_COMPANY_FORM_TEMPLATE
 import com.zavanton.company.entity.Company
 import com.zavanton.company.service.CompanyService
 import org.junit.jupiter.api.Test
@@ -40,10 +43,10 @@ class CompanyControllerTest {
         `when`(companyService.fetchAllCompanies()).thenReturn(companies)
 
         // action
-        mvc.perform(get(COMPANIES_URL))
+        mvc.perform(get(COMPANIES_LIST_URL))
             .andExpect(status().isOk)
             .andExpect(model().attribute("companies", companies))
-            .andExpect(view().name("companies/companies_list"))
+            .andExpect(view().name(COMPANIES_LIST_TEMPLATE))
 
         // verify
         verify(companyService).fetchAllCompanies()
@@ -58,7 +61,7 @@ class CompanyControllerTest {
         mvc.perform(get(COMPANIES_CREATE_URL))
             .andExpect(status().isOk)
             .andExpect(model().attribute("company", company))
-            .andExpect(view().name("companies/create_company"))
+            .andExpect(view().name(CREATE_COMPANY_FORM_TEMPLATE))
     }
 
     @Test
@@ -97,4 +100,23 @@ class CompanyControllerTest {
         // verify
         verify(companyService).fetchCompanyById(anyLong())
     }
+
+    @Test
+    fun `test processDeleteCompanyForm`() {
+        // mock
+        val id = 0L
+        val company = Company(id = id, name = "Google")
+        `when`(companyService.fetchCompanyById(anyLong())).thenReturn(company)
+
+        // action
+        mvc.perform(get("/companies/$id/delete"))
+            .andExpect(status().isOk)
+            .andExpect(model().attribute("company", company))
+            .andExpect(view().name(DELETE_COMPANY_FORM_TEMPLATE))
+
+        // verify
+        verify(companyService).fetchCompanyById(anyLong())
+    }
+
+
 }
