@@ -1,4 +1,4 @@
-package com.zavanton.company.command
+package com.zavanton.company.data.command
 
 import com.zavanton.company.util.EMPTY
 

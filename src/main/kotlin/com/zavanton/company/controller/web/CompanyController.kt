@@ -1,6 +1,6 @@
 package com.zavanton.company.controller.web
 
-import com.zavanton.company.command.CompanyCommand
+import com.zavanton.company.data.command.CompanyCommand
 import com.zavanton.company.service.CompanyService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model

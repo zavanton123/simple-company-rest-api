@@ -1,5 +1,6 @@
-package com.zavanton.company.controller.web
+package com.zavanton.company.controller
 
+import com.zavanton.company.util.CompanyNotFoundApiException
 import com.zavanton.company.util.CompanyNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ControllerAdvice
@@ -16,6 +17,14 @@ class ControllerExceptionHandler {
         exception: CompanyNotFoundException
     ): ModelAndView {
         return ModelAndView("404", mutableMapOf("exception" to exception))
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(CompanyNotFoundApiException::class)
+    fun handleCompanyNotFoundApiException(
+        exception: CompanyNotFoundApiException
+    ): String {
+        return exception.message ?: "company not found error"
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

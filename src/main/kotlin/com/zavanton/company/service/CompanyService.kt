@@ -1,6 +1,6 @@
 package com.zavanton.company.service
 
-import com.zavanton.company.command.CompanyCommand
+import com.zavanton.company.data.command.CompanyCommand
 
 interface CompanyService {
 

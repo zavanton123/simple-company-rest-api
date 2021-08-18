@@ -1,8 +1,8 @@
 package com.zavanton.company.service
 
-import com.zavanton.company.command.CompanyCommand
-import com.zavanton.company.converter.CompanyCommandToEntityConverter
-import com.zavanton.company.converter.CompanyEntityToCommandConverter
+import com.zavanton.company.data.command.CompanyCommand
+import com.zavanton.company.data.converter.CompanyCommandToEntityConverter
+import com.zavanton.company.data.converter.CompanyEntityToCommandConverter
 import com.zavanton.company.repository.CompanyRepository
 import com.zavanton.company.util.CompanyNotFoundException
 import org.springframework.stereotype.Service

@@ -1,4 +1,4 @@
-package com.zavanton.company.entity
+package com.zavanton.company.data.entity
 
 import com.zavanton.company.util.EMPTY
 import javax.persistence.Entity

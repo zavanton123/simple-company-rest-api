@@ -1,7 +1,7 @@
-package com.zavanton.company.converter
+package com.zavanton.company.data.converter
 
-import com.zavanton.company.command.CompanyCommand
-import com.zavanton.company.entity.Company
+import com.zavanton.company.data.command.CompanyCommand
+import com.zavanton.company.data.entity.Company
 import org.springframework.core.convert.converter.Converter
 import org.springframework.stereotype.Component
 

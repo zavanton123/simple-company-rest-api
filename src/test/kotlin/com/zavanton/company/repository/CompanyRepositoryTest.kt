@@ -1,6 +1,6 @@
 package com.zavanton.company.repository
 
-import com.zavanton.company.entity.Company
+import com.zavanton.company.data.entity.Company
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue

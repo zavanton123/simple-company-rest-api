@@ -12,6 +12,7 @@ internal class IndexControllerTest {
 
     private val mvc = MockMvcBuilders
         .standaloneSetup(indexController)
+        .setControllerAdvice(ControllerExceptionHandler())
         .build()
 
     @Test

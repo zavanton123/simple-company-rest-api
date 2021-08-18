@@ -1,6 +1,6 @@
 package com.zavanton.company.controller
 
-import com.zavanton.company.command.CompanyCommand
+import com.zavanton.company.data.command.CompanyCommand
 import com.zavanton.company.controller.web.CompanyController
 import com.zavanton.company.controller.web.CompanyController.Companion.COMPANIES_ATTRIBUTE
 import com.zavanton.company.controller.web.CompanyController.Companion.COMPANIES_CREATE_URL

@@ -1,6 +1,6 @@
 package com.zavanton.company.repository
 
-import com.zavanton.company.entity.Company
+import com.zavanton.company.data.entity.Company
 import java.util.*
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
