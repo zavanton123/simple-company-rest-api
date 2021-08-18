@@ -3,6 +3,7 @@ package com.zavanton.company.controller
 import com.zavanton.company.entity.Company
 import com.zavanton.company.service.CompanyService
 import org.junit.jupiter.api.Test
+import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.springframework.beans.factory.annotation.Autowired
@@ -45,6 +46,14 @@ class CompanyControllerTest {
 
     @Test
     fun showCreateCompanyForm() {
+        // mock
+        val company = Company()
+
+        // action and verify
+        mvc.perform(get("/companies/create"))
+            .andExpect(status().isOk)
+            .andExpect(model().attribute("company", company))
+            .andExpect(view().name("companies/create_company"))
     }
 
     @Test
@@ -53,5 +62,18 @@ class CompanyControllerTest {
 
     @Test
     fun showCompanyById() {
+        // mock
+        val id = 0L
+        val company = Company(id = id, name = "Google")
+        `when`(companyService.fetchCompanyById(anyLong())).thenReturn(company)
+
+        // action
+        mvc.perform(get("/companies/$id"))
+            .andExpect(status().isOk)
+            .andExpect(model().attribute("company", company))
+            .andExpect(view().name("companies/company_details"))
+
+        // verify
+        verify(companyService).fetchCompanyById(anyLong())
     }
 }
